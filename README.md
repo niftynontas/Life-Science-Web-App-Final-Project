@@ -6,7 +6,7 @@ Built with love and ambition to make academic excellence fun, trackable, and com
 💻 Created by Nontando Myoli
 
 ## 🌐 Live Demo
-Access the web app here 👉 
+Access the web app here 👉 https://niftynontas.github.io/Life-Science-Web-App-Final-Project/
 
 🚀 Features
 ✅ Timetable Generator
