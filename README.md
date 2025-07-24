@@ -30,7 +30,8 @@ Features:
 🎯 Subject goals section
 
 🤖 Interactive Chatbot
-A helpful, nameless JavaScript-powered chatbot that assists with Life Sciences queries and is always ready to chat while you revise!
+JavaScript-powered chatbot that assists with Life Sciences queries and is always ready to chat while you revise! 
+💡 Supports **text** and **voice input**, allowing users to speak their questions aloud.
 
 💬 Student Community Groups (Upcoming)
 Join virtual discussion spaces for each subject to ask questions, collaborate, and study together.
