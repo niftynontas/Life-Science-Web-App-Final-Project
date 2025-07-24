@@ -1,5 +1,7 @@
 📚 Grade 12 Study Web App
-A creative and interactive study platform designed to empower Grade 12 learners with the tools they need to study smarter, stay motivated, and bag distinctions. Built with love and ambition to make academic excellence fun, trackable, and community-driven.
+
+A creative and interactive study platform designed to empower Grade 12 learners with the tools they need to study smarter, stay motivated, and bag distinctions. 
+Built with love and ambition to make academic excellence fun, trackable, and community-driven.
 
 💻 Created by Nontando Myoli
 
