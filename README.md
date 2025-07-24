@@ -9,6 +9,7 @@ Built with love and ambition to make academic excellence fun, trackable, and com
 Access the web app here 👉 https://niftynontas.github.io/Life-Science-Web-App-Final-Project/
 
 🚀 Features
+
 ✅ Timetable Generator
 Create your own weekly study schedule by selecting Grade 12 subjects and time slots.
 
