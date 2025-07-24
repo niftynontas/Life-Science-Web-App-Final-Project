@@ -5,6 +5,9 @@ Built with love and ambition to make academic excellence fun, trackable, and com
 
 💻 Created by Nontando Myoli
 
+## 🌐 Live Demo
+Access the web app here 👉 
+
 🚀 Features
 ✅ Timetable Generator
 Create your own weekly study schedule by selecting Grade 12 subjects and time slots.
