@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Grade 12 Study Timetable</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --text: #2c3e50;
+      --card: #ffffff;
+      --btn-bg: #6c5ce7;
+      --btn-text: white;
+      --delete-color: #e74c3c;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #4a4a4a;
+      font-style: italic;
+      background-color: #fef9e7;
+      padding: 10px;
+      border-top: 2px solid #82e0aa;
+      border-radius: 0 0 15px 15px;
+      position: sticky;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      color: var(--text);
+      margin: 0;
+      padding: 20px;
+      transition: all 0.3s ease;
+      background: linear-gradient(135deg, #d1f2eb, #fef9e7);
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .toggle-theme {
+      display: block;
+      margin: 0 auto 20px;
+      padding: 10px 15px;
+      background-color: var(--btn-bg);
+      color: var(--btn-text);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .toggle-theme:hover {
+      background-color: #42c4db; 
+    }
+
+    .subject-card {
+      background-color: var(--card);
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+      transition: background-color 0.3s ease;
+    }
+
+    .subject-title {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .task-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .task-list li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .task-list input[type="checkbox"] {
+      margin-right: 10px;
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .task-list span.completed {
+      text-decoration: line-through;
+      color: gray;
+    }
+
+    input[type="text"], input[type="time"] {
+      padding: 8px;
+      margin-top: 10px;
+      margin-right: 5px;
+      width: 35%;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    button.add-task {
+      background-color: #82e0aa;
+      color: white;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    button.add-task:hover {
+      background-color: #f2f561;
+    }
+
+    .back-button {
+      display: inline-block;
+      background-color: #f9e79f;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: background-color 0.3s;
+      margin-bottom: 20px;
+    }
+    .back-button:hover {
+      background-color: #58d68d;
+    }
+
+    .delete-btn {
+      margin-left: auto;
+      background: none;
+      border: none;
+      color: var(--delete-color);
+      cursor: pointer;
+      font-size: 18px;
+      transition: color 0.3s ease;
+    }
+
+    .delete-btn:hover {
+      color: #ff6347; 
+    }
+    .btn-switch-mode {
+  background-color: #f9e79f;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none; 
+  display: inline-block; 
+}
+
+.btn-switch-mode:hover {
+  background-color: #58d68d;
+}
+  </style>
+</head>
+<body>
+  <h1>📚 Grade 12 Study Timetable</h1>
+  <br>
+  <div style="text-align: center; margin-top: 10px;">
+  <a href="quiz.html"
+     style="
+      background-color: #f9e79f;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: background-color 0.3s;
+    "
+     onmouseover="this.style.backgroundColor='#58d68d'"
+     onmouseout="this.style.backgroundColor='#f9e79f'">
+    ⬅️ Back to Quiz Mode
+  </a>
+  <br>
+  <br>
+  <br>
+  <a href="index.html" class="back-button">⬅️ Back to Chat Mode</a>
+  <br>
+  <br>
+  <a href="papers.html"
+     style="
+      background-color: #f9e79f;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: background-color 0.3s;
+    "
+     onmouseover="this.style.backgroundColor='#58d68d'"
+     onmouseout="this.style.backgroundColor='#f9e79f'">
+    📚 View Past Papers
+  </a>
+  <br><br><br><br>
+  <a href="studytips.html"
+     style="
+      background-color: #f9e79f;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: background-color 0.3s;
+    "
+     onmouseover="this.style.backgroundColor='#58d68d'"
+     onmouseout="this.style.backgroundColor='#f9e79f'">
+    📚 Study Tips and Tracker
+  </a>
+</div>
+<br><br><br>
+  <div id="subjects-container"></div>
+<br>
+  <script>
+    const subjects = [
+      "Mathematics", "Physical Sciences", "Life Sciences", "Geography",
+      "History", "English Home Language", "Afrikaans FAL", "IsiXhosa HL",
+      "Economics", "Business Studies", "Accounting", "CAT", "IT", "LO"
+    ];
+
+    const container = document.getElementById("subjects-container");
+
+    function loadTasks(subject) {
+      return JSON.parse(localStorage.getItem(subject)) || [];
+    }
+
+    function saveTasks(subject, tasks) {
+      localStorage.setItem(subject, JSON.stringify(tasks));
+    }
+
+    function renderTasks(subject, taskListEl) {
+      const tasks = loadTasks(subject);
+      taskListEl.innerHTML = "";
+      tasks.forEach(({ text, time, completed }, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <input type="checkbox" ${completed ? "checked" : ""} onchange="toggleComplete('${subject}', ${index})" />
+          <span class="${completed ? 'completed' : ''}">${text} (${time})</span>
+          <button class="delete-btn" onclick="deleteTask('${subject}', ${index})" title="Delete task">🗑️</button>
+        `;
+        taskListEl.appendChild(li);
+      });
+    }
+
+    function toggleComplete(subject, index) {
+      const tasks = loadTasks(subject);
+      tasks[index].completed = !tasks[index].completed;
+      saveTasks(subject, tasks);
+      renderTasks(subject, document.getElementById(`${subject}-list`));
+    }
+
+    function deleteTask(subject, index) {
+      const tasks = loadTasks(subject);
+      tasks.splice(index, 1);
+      saveTasks(subject, tasks);
+      renderTasks(subject, document.getElementById(`${subject}-list`));
+    }
+
+    subjects.forEach(subject => {
+      const card = document.createElement("div");
+      card.className = "subject-card";
+
+      const taskListId = `${subject}-list`;
+      card.innerHTML = `
+        <div class="subject-title">📘 ${subject}</div>
+        <ul class="task-list" id="${taskListId}"></ul>
+        <input type="text" id="${subject}-input" placeholder="Add a task" />
+        <input type="time" id="${subject}-time" />
+        <button class="add-task" onclick="addTask('${subject}')">➕ Add Task</button>
+      `;
+
+      container.appendChild(card);
+      renderTasks(subject, document.getElementById(taskListId));
+    });
+
+    function addTask(subject) {
+      const input = document.getElementById(`${subject}-input`);
+      const time = document.getElementById(`${subject}-time`);
+      if (input.value.trim() === "") return;
+
+      const tasks = loadTasks(subject);
+      tasks.push({ text: input.value, time: time.value, completed: false });
+      saveTasks(subject, tasks);
+      renderTasks(subject, document.getElementById(`${subject}-list`));
+      input.value = "";
+      time.value = "";
+    }
+    // PWA install
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(() => console.log("Service Worker Registered"))
+        .catch(() => console.log("Service Worker Registration Failed"));
+    }
+  </script>
+  <footer class="footer">
+  <p>🌿 Made with love for Life Science learners 💚 | © Nontando Myoli</p>
+</footer>
+</body>
+</html>
+

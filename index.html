@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Life Science Chatbot</title>
+  <style>
+    :root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --button-bg: #4CAF50;
+  --button-text: #ffffff;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: Arial, sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+button {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #d1f2eb, #fef9e7);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      padding-top: 30px;
+    }
+
+    h1 {
+      color: #388e3c;
+      text-align: center;
+      margin: 0;
+    }
+
+    .slogan {
+      color: #ff9800;
+      font-style: italic;
+      text-align: center;
+      margin-top: 5px;
+      margin-bottom: 20px;
+    }
+
+    .chat-container {
+      width: 90%;
+      max-width: 600px;
+      background: linear-gradient(to bottom right, #eafaf1, #fffde7);
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      border: 3px solid #82e0aa;
+    }
+
+    .chat-box {
+      height: 400px;
+      overflow-y: auto;
+      border: 2px solid #58d68d;
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      background-color: #fcf3cf;
+      white-space: pre-wrap; 
+    }
+
+    .chat-box p {
+      margin: 10px 0;
+    }
+
+    .user {
+      color: #2e86c1;
+      font-weight: bold;
+    }
+
+    .bot {
+      color: #145a32;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    #userInput {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid #f4d03f;
+      border-radius: 10px;
+      background-color: #fef9e7;
+      width: 100%;
+    }
+
+    button {
+      padding: 10px 16px;
+      font-size: 14px;
+      background-color: #f39c12;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #d68910;
+    }
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .button-group button {
+      padding: 10px 15px;
+      background-color: #f39c12;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .button-group button:hover {
+      background-color: #d68910;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #4a4a4a;
+      font-style: italic;
+      background-color: #fef9e7;
+      padding: 10px;
+      border-top: 2px solid #82e0aa;
+      border-radius: 0 0 15px 15px;
+      position: sticky;
+    }
+    #topicButtons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    #topicButtons button.topic-btn {
+      background-color: #4caf50;
+      border-radius: 8px;
+      border: none;
+      color: white;
+      font-weight: bold;
+      padding: 10px 15px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      white-space: nowrap;
+    }
+    #topicButtons button.topic-btn:hover {
+      background-color: #388e3c;
+    }
+
+    #questionList {
+      max-width: 600px;
+      margin: 0 auto 15px auto;
+      border: 2px solid #f4d03f;
+      background-color: #fff9db;
+      border-radius: 10px;
+      padding: 10px;
+      display: none; 
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    #questionList button {
+      display: block;
+      width: 100%;
+      padding: 8px 12px;
+      margin: 6px 0;
+      border: none;
+      border-radius: 6px;
+      background-color: #f39c12;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      transition: background-color 0.2s ease;
+    }
+    #questionList button:hover {
+      background-color: #d68910;
+    }
+
+    /* Typing animation */
+    .typing {
+      font-style: italic;
+      color: #888;
+      margin: 5px 0 10px 0;
+    }
+.btn-switch-mode {
+  background-color: #f9e79f;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none; 
+  display: inline-block; 
+}
+
+.btn-switch-mode:hover {
+  background-color: #58d68d;
+}
+  </style>
+</head>
+<body>
+  <h1>🌼 Life Science ChatBot</h1>
+  <div class="slogan">Your smart bestie for all CAPS life science Qs!</div>
+  <!-- Link to Quiz Mode -->
+  <button class="btn-switch-mode" onclick="location.href='quiz.html'">
+    Switch to Quiz Mode ➡️
+  </button>
+  <br>
+   <button class="btn-switch-mode" onclick="location.href='timetable.html'">
+    Switch to Time-Table Mode ➡️
+  </button>
+  <br>
+  <br>
+  <!-- Button to go to Past Papers -->
+<div style="text-align: center; margin-top: 10px;">
+  <a href="papers.html"
+     style="
+      background-color: #f9e79f;  
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: background-color 0.3s;
+    "
+     onmouseover="this.style.backgroundColor='#58d68d'"
+     onmouseout="this.style.backgroundColor='#f9e79f'">
+    📚 View Past Papers
+  </a>
+  <br>
+  <br>
+  <br>
+  <br>
+  <a href="studytips.html"
+     style="
+      background-color: #f9e79f;  
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: background-color 0.3s;
+    "
+     onmouseover="this.style.backgroundColor='#58d68d'"
+     onmouseout="this.style.backgroundColor='#f9e79f'">
+    📚 Study Tips and Tracker
+  </a>
+</div>
+<br>
+<br>  
+  <div class="chat-container">
+
+    <div id="topicButtons">
+      <button class="topic-btn" data-topic="dna">🧬 DNA</button>
+      <button class="topic-btn" data-topic="meiosis">🔬 Meiosis</button>
+      <button class="topic-btn" data-topic="genetics">🧫 Genetics</button>
+      <button class="topic-btn" data-topic="genetic_engineering">🧪 Genetic Engineering</button>
+      <button class="topic-btn" data-topic="evolution">🌍 Evolution</button>
+      <button class="topic-btn" data-topic="human_impact">🌿 Human Impact</button>
+    </div>
+
+    <div id="questionList"></div>
+
+    <div class="chat-box" id="chatBox">
+      <p class="bot"><strong>Bot:</strong> Hello bestie! 🌿 Ask me anything about Life Science 🌞</p>
+    </div>
+
+    <input type="text" id="userInput" placeholder="Type your question here..." />
+    <br>
+    <div class="button-group">
+      <button id="voiceBtn">🎤 Speak</button>
+      <button id="clearBtn">❌ Clear</button>
+      <button id="sendBtn">📤 Send</button>
+      <button id="toggleVoiceBtn">🔊 Voice: On</button>
+    </div>
+  </div>
+
+  <script>
+  const chatBox = document.getElementById("chatBox");
+  const userInput = document.getElementById("userInput");
+  const sendBtn = document.getElementById("sendBtn");
+  const voiceBtn = document.getElementById("voiceBtn");
+  const clearBtn = document.getElementById("clearBtn");
+  const toggleVoiceBtn = document.getElementById("toggleVoiceBtn");
+  const questionListDiv = document.getElementById("questionList");
+
+  let voiceEnabled = true;
+  let typingTimeout;
+
+  // Life Science Q&A dictionary
+  const lifeSciQA = {
+    dna: [
+      { q: "what is dna", a: "DNA (Deoxyribonucleic Acid) is the molecule that carries genetic information in living organisms." },
+      { q: "what shape is the dna molecule", a: "DNA has a double helix shape, like a twisted ladder." },
+      { q: "what are the building blocks of dna", a: "Nucleotides, made up of a sugar, phosphate, and nitrogenous base." },
+      { q: "name the 4 nitrogen bases in dna", a: "Adenine (A), Thymine (T), Cytosine (C), Guanine (G)." },
+      { q: "which bases pair together in dna", a: "A pairs with T, and C pairs with G." },
+      { q: "what is a gene", a: "A gene is a section of DNA that codes for a protein." },
+      { q: "what is the function of dna", a: "DNA stores genetic information and instructions for protein synthesis." },
+      { q: "what is a chromosome", a: "A chromosome is a thread-like structure made of DNA and proteins, carrying genes." },
+      { q: "what is rna", a: "RNA (Ribonucleic Acid) is a single-stranded molecule that helps in protein synthesis." },
+      { q: "how is rna different from dna", a: "RNA is single-stranded, has uracil (U) instead of thymine (T), and contains ribose sugar." },
+      { q: "what is protein synthesis", a: "It’s the process where cells use DNA instructions to make proteins." },
+      { q: "what is transcription", a: "Transcription is the process of copying DNA into mRNA in the nucleus." },
+      { q: "what is translation", a: "Translation is when mRNA is decoded to make proteins at the ribosome." },
+      { q: "what is a codon", a: "A codon is a sequence of 3 mRNA bases that codes for one amino acid." },
+      { q: "what is an anticodon", a: "An anticodon is a triplet of bases on tRNA that pairs with an mRNA codon." },
+      { q: "what is dna replication", a: "DNA replication is the process of making an exact copy of DNA before cell division." },
+      { q: "what is a mutation", a: "A mutation is a change in the DNA sequence that may affect a gene." },
+      { q: "what causes mutations", a: "Radiation, chemicals, and errors during DNA replication can cause mutations." },
+      { q: "what is dna fingerprinting", a: "A technique used to identify individuals based on unique patterns in their DNA." },
+      { q: "why is protein synthesis important", a: "It produces the proteins needed for cell function, structure, and growth." }
+    ],
+
+    meiosis: [
+      { q: "what is meiosis", a: "Meiosis is a type of cell division that reduces the number of chromosomes by half and results in four daughter cells." },
+      { q: "how many divisions occur in meiosis", a: "Two successive divisions: Meiosis I and Meiosis II." },
+      { q: "how many daughter cells are produced in meiosis", a: "Four non-identical haploid cells are produced." },
+      { q: "why is meiosis important", a: "It produces gametes and introduces genetic variation." },
+      { q: "where does meiosis occur in humans", a: "In the ovaries and testes." },
+      { q: "what is crossing over", a: "Exchange of genetic material between homologous chromosomes during prophase I." },
+      { q: "what is independent assortment", a: "Random distribution of homologous chromosomes during metaphase I." },
+      { q: "what happens during prophase i", a: "Homologous chromosomes pair up and crossing over may occur." },
+      { q: "what happens in metaphase i", a: "Homologous pairs align at the equator of the cell." },
+      { q: "what happens during anaphase i", a: "Homologous chromosomes are pulled to opposite poles." },
+      { q: "what happens during telophase i", a: "The cell divides into two haploid cells." },
+      { q: "what happens during prophase ii", a: "Chromosomes condense again without DNA replication." },
+      { q: "what happens during metaphase ii", a: "Chromosomes line up individually along the equator." },
+      { q: "what happens during anaphase ii", a: "Sister chromatids are pulled apart to opposite poles." },
+      { q: "what happens during telophase ii", a: "Four non-identical haploid cells are formed." },
+      { q: "what is the difference between meiosis and mitosis", a: "Meiosis produces 4 genetically different haploid cells, while mitosis produces 2 identical diploid cells." },
+      { q: "what is a gamete", a: "A reproductive cell (sperm or egg) with half the number of chromosomes." },
+      { q: "what causes genetic variation in meiosis", a: "Crossing over and independent assortment." },
+      { q: "what is a homologous chromosome", a: "A pair of chromosomes with the same genes but possibly different alleles." },
+      { q: "why is meiosis important for evolution", a: "It creates genetic diversity, which allows species to adapt and evolve." }
+    ],
+    genetics: [
+      {q: "what is genetics?", a: "Genetics is the study of heredity and how traits are passed from parents to offspring."},
+      {q: "what is a gene?", a: "A gene is a section of DNA that codes for a protein and determines a trait."},
+      {q: "what is an allele?", a: "An allele is a different form of the same gene."},
+      {q: "what is the difference between dominant and recessive alleles?", a: "A dominant allele expresses its trait even if only one is present, while a recessive allele is only expressed if both alleles are recessive."},
+      {q: "what is a genotype?", a: "A genotype is the genetic makeup of an organism (e.g., Bb or BB)."},
+      {q: "what is a phenotype?", a: "A phenotype is the physical expression of a trait (e.g., brown eyes)."},
+      {q: "what is homozygous?", a: "An individual with two of the same alleles (e.g., BB or bb)."},
+      {q: "what is heterozygous?", a: "An individual with two different alleles for a trait (e.g., Bb)."},
+      {q: "what is a punnett square?", a: "A diagram used to predict the outcome of a genetic cross."},
+      {q: "what is a monohybrid cross?", a: "A cross involving one gene with two alleles."},
+      {q: "what is a dihybrid cross?", a: "A cross involving two genes, each with two alleles."},
+      {q: "what is mendel's first law?", a: "Law of Segregation: each individual has two alleles for each trait, and these separate during gamete formation."},
+      {q: "what is mendel's second law?", a: "Law of Independent Assortment: genes for different traits are inherited independently."},
+      {q: "what is incomplete dominance?", a: "When the heterozygous phenotype is a blend of the two alleles."},
+      {q: "what is codominance?", a: "Both alleles in a heterozygote are fully expressed (e.g., AB blood type)."},
+      {q: "what is sex-linked inheritance?", a: "Traits carried on the sex chromosomes, often X-linked."},
+      {q: "what is a pedigree diagram?", a: "A chart that shows genetic relationships and how traits are passed through generations."},
+      {q: "what is a carrier?", a: "An individual who has one copy of a recessive allele but does not express the trait."},
+      {q: "what is mutation in genetics?", a: "A change in the DNA that may result in a different trait or disease."},
+      {q: "what is genetic variation?", a: "Differences in DNA among individuals, which lead to diversity in a population."}
+    ],
+    genetic_engineering: [
+      {q: "what is genetic engineering?", a: "The direct manipulation of an organism’s genes using biotechnology."},
+      {q: "what is recombinant dna?", a: "DNA molecules formed by combining genetic material from different sources."},
+      {q: "what is a plasmid?", a: "A small circular DNA molecule found in bacteria used as a vector in genetic engineering."},
+      {q: "what is a vector in genetic engineering?", a: "A vehicle, like a plasmid, used to transfer genetic material into a host cell."},
+      {q: "what is gene cloning?", a: "Making identical copies of a gene."},
+      {q: "what is a genetically modified organism (gmo)?", a: "An organism whose genome has been altered by genetic engineering."},
+      {q: "what is the role of restriction enzymes?", a: "They cut DNA at specific sequences to allow insertion of new genes."},
+      {q: "what is dna ligase?", a: "An enzyme that joins DNA fragments together."},
+      {q: "what is pcr (polymerase chain reaction)?", a: "A technique to amplify small segments of DNA."},
+      {q: "what is gel electrophoresis?", a: "A method to separate DNA fragments by size."},
+      {q: "what is gene therapy?", a: "Treatment of genetic disorders by inserting correct genes into cells."},
+      {q: "what is the human genome project?", a: "An international effort to map all human genes."},
+      {q: "what are ethical concerns in genetic engineering?", a: "Issues include safety, consent, environmental impact, and genetic discrimination."},
+      {q: "what is a transgenic organism?", a: "An organism that contains genes from another species."},
+      {q: "what is crispr-cas9?", a: "A gene-editing tool that allows precise, targeted changes to DNA."},
+      {q: "what is a genome?", a: "The complete set of DNA in an organism."},
+      {q: "what is a promoter region?", a: "DNA sequence that controls the transcription of a gene."},
+      {q: "what is gene expression?", a: "The process by which information from a gene is used to make a protein."},
+      {q: "what is horizontal gene transfer?", a: "Transfer of genes between organisms other than by inheritance."},
+      {q: "what is selective breeding?", a: "Choosing organisms with desirable traits to reproduce."}
+    ],
+    evolution: [
+      {q: "what is evolution?", a: "Evolution is the change in species over time through natural selection."},
+      {q: "who proposed the theory of evolution?", a: "Charles Darwin."},
+      {q: "what is natural selection?", a: "The process where organisms better adapted to their environment survive and reproduce."},
+      {q: "what is survival of the fittest?", a: "The idea that the strongest or most adapted organisms survive."},
+      {q: "what is a fossil?", a: "Preserved remains or impressions of ancient organisms."},
+      {q: "what is speciation?", a: "The formation of new and distinct species."},
+      {q: "what is genetic drift?", a: "Random changes in gene frequencies in a population."},
+      {q: "what is gene flow?", a: "The transfer of genes between populations."},
+      {q: "what is adaptation?", a: "A trait that increases an organism’s chance of survival."},
+      {q: "what is artificial selection?", a: "Selective breeding by humans."},
+      {q: "what is homologous structure?", a: "Structures that share a common ancestor but may have different functions."},
+      {q: "what is analogous structure?", a: "Structures with similar function but different evolutionary origins."},
+      {q: "what is vestigial structure?", a: "Reduced or nonfunctional structures inherited from ancestors."},
+      {q: "what is the role of mutations in evolution?", a: "Mutations introduce genetic variation."},
+      {q: "what is punctuated equilibrium?", a: "Evolution happens in rapid bursts separated by long periods of stability."},
+      {q: "what is co-evolution?", a: "Two species evolving in response to each other."},
+      {q: "what is the fossil record?", a: "The history of life documented by fossils."},
+      {q: "what is microevolution?", a: "Small evolutionary changes within a species."},
+      {q: "what is macroevolution?", a: "Large-scale evolution resulting in new species."},
+      {q: "what is the theory of inheritance of acquired traits?", a: "Lamarck’s idea that traits acquired during life can be passed on."}
+    ],
+    human_impact: [
+      {q: "what is human impact on the environment?", a: "Effects caused by humans on natural ecosystems."},
+      {q: "what causes deforestation?", a: "Clearing forests for agriculture, logging, and urban development."},
+      {q: "what is pollution?", a: "Contamination of air, water, or soil by harmful substances."},
+      {q: "what is global warming?", a: "Increase in Earth’s average temperature due to greenhouse gases."},
+      {q: "what are greenhouse gases?", a: "Gases like CO2 and methane that trap heat in the atmosphere."},
+      {q: "what is biodiversity?", a: "The variety of living organisms in an ecosystem."},
+      {q: "how does pollution affect biodiversity?", a: "It can kill species and disrupt ecosystems."},
+      {q: "what is sustainable development?", a: "Meeting present needs without compromising future generations."},
+      {q: "what is conservation?", a: "Protecting natural resources and habitats."},
+      {q: "what is acid rain?", a: "Rainfall made acidic by air pollution."},
+      {q: "what causes ozone depletion?", a: "Chemicals like CFCs damaging the ozone layer."},
+      {q: "what are renewable energy sources?", a: "Energy from sources that can be replenished like solar and wind."},
+      {q: "what is recycling?", a: "Processing materials to make them reusable."},
+      {q: "what is desertification?", a: "Land degradation turning fertile land into desert."},
+      {q: "what are invasive species?", a: "Non-native species that harm ecosystems."},
+      {q: "what is overfishing?", a: "Harvesting fish faster than they can reproduce."},
+      {q: "what is climate change?", a: "Long-term changes in temperature and weather patterns."},
+      {q: "how can humans reduce impact?", a: "Using less energy, recycling, protecting habitats, and using clean energy."},
+      {q: "what is habitat destruction?", a: "Loss of natural habitat due to human activities."},
+      {q: "what is the role of NGOs in environment?", a: "They work to protect the environment and raise awareness."}
+    ]
+  };
+
+  // Show questions when topic button clicked
+  document.querySelectorAll(".topic-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const topic = btn.getAttribute("data-topic");
+      const questions = lifeSciQA[topic];
+
+      if (!questions) return;
+
+      // Clear old questions
+      questionListDiv.innerHTML = "";
+
+      // Add question buttons
+      questions.forEach(item => {
+        const qBtn = document.createElement("button");
+        qBtn.textContent = item.q;
+        qBtn.addEventListener("click", () => {
+          userInput.value = item.q;
+          questionListDiv.style.display = "none";
+          sendBtn.click();
+        });
+        questionListDiv.appendChild(qBtn);
+      });
+
+      // Show the question list container
+      questionListDiv.style.display = "block";
+      // Scroll to question list smoothly
+      questionListDiv.scrollIntoView({behavior:"smooth"});
+    });
+  });
+
+  // Clear button clears chat and input
+  clearBtn.addEventListener("click", () => {
+    chatBox.innerHTML = '<p class="bot"><strong>Bot:</strong> Hello bestie! 🌿 Ask me anything about Life Science 🌞</p>';
+    userInput.value = "";
+    questionListDiv.style.display = "none";
+  });
+
+  // Send button sends user input
+  sendBtn.addEventListener("click", () => {
+    const question = userInput.value.trim();
+    if (!question) return;
+
+    addMessage("user", question);
+    userInput.value = "";
+    questionListDiv.style.display = "none";
+
+    // Simulate typing & loading dots before bot response
+    addTyping();
+    setTimeout(() => {
+      removeTyping();
+      const answer = getAnswer(question.toLowerCase());
+      addMessage("bot", answer);
+      if (voiceEnabled) speak(answer);
+    }, 1500);
+  });
+
+  // Add message to chat box
+  function addMessage(sender, text) {
+    const p = document.createElement("p");
+    p.className = sender;
+    p.innerHTML = `<strong>${sender === "user" ? "You" : "Bot"}:</strong> ${text}`;
+    chatBox.appendChild(p);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  // Add typing animation text
+  function addTyping() {
+    const p = document.createElement("p");
+    p.id = "typingAnim";
+    p.className = "typing";
+    p.textContent = "Bot is typing";
+    chatBox.appendChild(p);
+
+    let dots = 0;
+    typingTimeout = setInterval(() => {
+      dots = (dots + 1) % 4;
+      p.textContent = "Bot is typing" + ".".repeat(dots);
+    }, 400);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  // Remove typing animation
+  function removeTyping() {
+    clearInterval(typingTimeout);
+    const p = document.getElementById("typingAnim");
+    if (p) p.remove();
+  }
+
+  // Find best answer from lifeSciQA
+  function getAnswer(question) {
+    // Search all topics for best match
+    for (const topic in lifeSciQA) {
+      const qlist = lifeSciQA[topic];
+      for (const item of qlist) {
+        if (item.q.toLowerCase() === question) {
+          return item.a;
+        }
+      }
+    }
+    return "Hmm, I don't have an answer for that yet bestie. Try another question!";
+  }
+
+  // Speech Synthesis
+  function speak(text) {
+    if (!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel(); // stop any current
+    const utterance = new SpeechSynthesisUtterance(text);
+    window.speechSynthesis.speak(utterance);
+  }
+
+  // Toggle voice on/off
+  toggleVoiceBtn.addEventListener("click", () => {
+    voiceEnabled = !voiceEnabled;
+    toggleVoiceBtn.textContent = voiceEnabled ? "🔊 Voice: On" : "🔇 Voice: Off";
+  });
+
+  // Voice recognition for input
+  let recognition;
+  if ('webkitSpeechRecognition' in window) {
+    recognition = new webkitSpeechRecognition();
+    recognition.lang = "en-US";
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    voiceBtn.addEventListener("click", () => {
+      recognition.start();
+      voiceBtn.textContent = "🎙️ Listening...";
+      voiceBtn.disabled = true;
+    });
+
+    recognition.onresult = (event) => {
+      userInput.value = event.results[0][0].transcript;
+      voiceBtn.textContent = "🎤 Speak";
+      voiceBtn.disabled = false;
+    };
+    recognition.onerror = () => {
+      voiceBtn.textContent = "🎤 Speak";
+      voiceBtn.disabled = false;
+    };
+  } else {
+    voiceBtn.style.display = "none"; // hide if unsupported
+  }
+
+  // Send on Enter key press
+  userInput.addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+      sendBtn.click();
+    }
+  });
+
+  </script>
+  <footer class="footer">
+  <p>🌿 Made with love for Life Science learners 💚 | © Nontando Myoli</p>
+</footer>
+</body>
+</html>
+

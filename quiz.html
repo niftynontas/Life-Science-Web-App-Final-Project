@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Life Science Quiz Mode</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #fef9e7, #e8f5e9);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #333;
+    }
+
+    h1 {
+      color: #45a049;
+      margin-bottom: 10px;
+    }
+
+    .topic-select {
+      margin-bottom: 20px;
+    }
+
+    select, button {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      background-color: #fcf3cf;
+      margin: 5px;
+    }
+
+    .card {
+      background-color: #ffffff;
+      border: 2px solid #a5d6a7;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.08);
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+    }
+
+    .question {
+      font-size: 18px;
+      margin-bottom: 15px;
+      color: #444;
+    }
+
+    .answer {
+      display: none;
+      font-style: italic;
+      color: #2e7d32;
+      margin-bottom: 15px;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-know {
+      background-color: #d5f5e3;
+    }
+
+    .btn-not-sure {
+      background-color: #fdebd0;
+    }
+
+    .progress {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #777;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+    <div style="text-align: center; margin-top: 20px;">
+  <a href="index.html" 
+   style="
+    background-color: #f9e79f;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: background-color 0.3s;
+  " onmouseover="this.style.backgroundColor='#58d68d'" onmouseout="this.style.backgroundColor='#82e0aa'">
+    ⬅️ Back to Chat Mode
+  </a>
+</div>
+<br>
+<br>
+<div style="text-align: center; margin-top: 10px;">
+  <a href="papers.html"
+     style="
+      background-color: #f9e79f;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: background-color 0.3s;
+    "
+     onmouseover="this.style.backgroundColor='#58d68d'"
+     onmouseout="this.style.backgroundColor='#f9e79f'">
+    📚 View Past Papers
+  </a>
+  <br>
+  <br>
+  <br>
+  <br>
+     <a href="timetable.html"
+     style="
+      background-color: #f9e79f;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: background-color 0.3s;
+    "
+     onmouseover="this.style.backgroundColor='#58d68d'"
+     onmouseout="this.style.backgroundColor='#f9e79f'">
+    Switch to Time-Table Mode ➡️
+  </a>
+  <br>
+  <br>
+  <br>
+  <br>
+   <a href="studytips.html"
+     style="
+      background-color: #f9e79f;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: background-color 0.3s;
+    "
+     onmouseover="this.style.backgroundColor='#58d68d'"
+     onmouseout="this.style.backgroundColor='#f9e79f'">
+    📚 Study Tips and Tracker
+  </a>
+</div>
+
+  <h1>✨ Quiz Mode</h1>
+  <div class="topic-select">
+    <label for="topic">Choose Topic:</label>
+    <select id="topic">
+      <option value="dna">DNA</option>
+      <option value="meiosis">Meiosis</option>
+      <option value="genetics">Genetics</option>
+      <option value="genetic_engineering">Genetic Engineering</option>
+      <option value="evolution">Evolution</option>
+      <option value="human_impact">Human Impact</option>
+    </select>
+    <button onclick="startQuiz()">Start</button>
+  </div>
+
+  <div class="card">
+    <div class="question" id="question">Click "Start" to begin ✨</div>
+    <div class="answer" id="answer"></div>
+    <div class="btn-group">
+      <button onclick="showAnswer()">👀 Show Answer</button>
+      <button onclick="nextQuestion()">➡️ Next</button>
+      <button class="btn-know" onclick="markAsKnown()">✅ Know</button>
+      <button class="btn-not-sure" onclick="markAsNotSure()">🤔 Not Sure</button>
+    </div>
+    <div class="progress" id="progress"></div>
+  </div>
+
+ <footer class="footer">
+  <p>🌿 Made with love for Life Science learners 💚 | © Nontando Myoli</p>
+</footer>
+
+  <script>
+    const quizData = {
+      dna: [
+      { q: "what is dna", a: "DNA (Deoxyribonucleic Acid) is the molecule that carries genetic information in living organisms." },
+      { q: "what shape is the dna molecule", a: "DNA has a double helix shape, like a twisted ladder." },
+      { q: "what are the building blocks of dna", a: "Nucleotides, made up of a sugar, phosphate, and nitrogenous base." },
+      { q: "name the 4 nitrogen bases in dna", a: "Adenine (A), Thymine (T), Cytosine (C), Guanine (G)." },
+      { q: "which bases pair together in dna", a: "A pairs with T, and C pairs with G." },
+      { q: "what is a gene", a: "A gene is a section of DNA that codes for a protein." },
+      { q: "what is the function of dna", a: "DNA stores genetic information and instructions for protein synthesis." },
+      { q: "what is a chromosome", a: "A chromosome is a thread-like structure made of DNA and proteins, carrying genes." },
+      { q: "what is rna", a: "RNA (Ribonucleic Acid) is a single-stranded molecule that helps in protein synthesis." },
+      { q: "how is rna different from dna", a: "RNA is single-stranded, has uracil (U) instead of thymine (T), and contains ribose sugar." },
+      { q: "what is protein synthesis", a: "It’s the process where cells use DNA instructions to make proteins." },
+      { q: "what is transcription", a: "Transcription is the process of copying DNA into mRNA in the nucleus." },
+      { q: "what is translation", a: "Translation is when mRNA is decoded to make proteins at the ribosome." },
+      { q: "what is a codon", a: "A codon is a sequence of 3 mRNA bases that codes for one amino acid." },
+      { q: "what is an anticodon", a: "An anticodon is a triplet of bases on tRNA that pairs with an mRNA codon." },
+      { q: "what is dna replication", a: "DNA replication is the process of making an exact copy of DNA before cell division." },
+      { q: "what is a mutation", a: "A mutation is a change in the DNA sequence that may affect a gene." },
+      { q: "what causes mutations", a: "Radiation, chemicals, and errors during DNA replication can cause mutations." },
+      { q: "what is dna fingerprinting", a: "A technique used to identify individuals based on unique patterns in their DNA." },
+      { q: "why is protein synthesis important", a: "It produces the proteins needed for cell function, structure, and growth." }
+    ],
+
+    meiosis: [
+      { q: "what is meiosis", a: "Meiosis is a type of cell division that reduces the number of chromosomes by half and results in four daughter cells." },
+      { q: "how many divisions occur in meiosis", a: "Two successive divisions: Meiosis I and Meiosis II." },
+      { q: "how many daughter cells are produced in meiosis", a: "Four non-identical haploid cells are produced." },
+      { q: "why is meiosis important", a: "It produces gametes and introduces genetic variation." },
+      { q: "where does meiosis occur in humans", a: "In the ovaries and testes." },
+      { q: "what is crossing over", a: "Exchange of genetic material between homologous chromosomes during prophase I." },
+      { q: "what is independent assortment", a: "Random distribution of homologous chromosomes during metaphase I." },
+      { q: "what happens during prophase i", a: "Homologous chromosomes pair up and crossing over may occur." },
+      { q: "what happens in metaphase i", a: "Homologous pairs align at the equator of the cell." },
+      { q: "what happens during anaphase i", a: "Homologous chromosomes are pulled to opposite poles." },
+      { q: "what happens during telophase i", a: "The cell divides into two haploid cells." },
+      { q: "what happens during prophase ii", a: "Chromosomes condense again without DNA replication." },
+      { q: "what happens during metaphase ii", a: "Chromosomes line up individually along the equator." },
+      { q: "what happens during anaphase ii", a: "Sister chromatids are pulled apart to opposite poles." },
+      { q: "what happens during telophase ii", a: "Four non-identical haploid cells are formed." },
+      { q: "what is the difference between meiosis and mitosis", a: "Meiosis produces 4 genetically different haploid cells, while mitosis produces 2 identical diploid cells." },
+      { q: "what is a gamete", a: "A reproductive cell (sperm or egg) with half the number of chromosomes." },
+      { q: "what causes genetic variation in meiosis", a: "Crossing over and independent assortment." },
+      { q: "what is a homologous chromosome", a: "A pair of chromosomes with the same genes but possibly different alleles." },
+      { q: "why is meiosis important for evolution", a: "It creates genetic diversity, which allows species to adapt and evolve." }
+    ],
+    genetics: [
+      {q: "what is genetics?", a: "Genetics is the study of heredity and how traits are passed from parents to offspring."},
+      {q: "what is a gene?", a: "A gene is a section of DNA that codes for a protein and determines a trait."},
+      {q: "what is an allele?", a: "An allele is a different form of the same gene."},
+      {q: "what is the difference between dominant and recessive alleles?", a: "A dominant allele expresses its trait even if only one is present, while a recessive allele is only expressed if both alleles are recessive."},
+      {q: "what is a genotype?", a: "A genotype is the genetic makeup of an organism (e.g., Bb or BB)."},
+      {q: "what is a phenotype?", a: "A phenotype is the physical expression of a trait (e.g., brown eyes)."},
+      {q: "what is homozygous?", a: "An individual with two of the same alleles (e.g., BB or bb)."},
+      {q: "what is heterozygous?", a: "An individual with two different alleles for a trait (e.g., Bb)."},
+      {q: "what is a punnett square?", a: "A diagram used to predict the outcome of a genetic cross."},
+      {q: "what is a monohybrid cross?", a: "A cross involving one gene with two alleles."},
+      {q: "what is a dihybrid cross?", a: "A cross involving two genes, each with two alleles."},
+      {q: "what is mendel's first law?", a: "Law of Segregation: each individual has two alleles for each trait, and these separate during gamete formation."},
+      {q: "what is mendel's second law?", a: "Law of Independent Assortment: genes for different traits are inherited independently."},
+      {q: "what is incomplete dominance?", a: "When the heterozygous phenotype is a blend of the two alleles."},
+      {q: "what is codominance?", a: "Both alleles in a heterozygote are fully expressed (e.g., AB blood type)."},
+      {q: "what is sex-linked inheritance?", a: "Traits carried on the sex chromosomes, often X-linked."},
+      {q: "what is a pedigree diagram?", a: "A chart that shows genetic relationships and how traits are passed through generations."},
+      {q: "what is a carrier?", a: "An individual who has one copy of a recessive allele but does not express the trait."},
+      {q: "what is mutation in genetics?", a: "A change in the DNA that may result in a different trait or disease."},
+      {q: "what is genetic variation?", a: "Differences in DNA among individuals, which lead to diversity in a population."}
+    ],
+    genetic_engineering: [
+      {q: "what is genetic engineering?", a: "The direct manipulation of an organism’s genes using biotechnology."},
+      {q: "what is recombinant dna?", a: "DNA molecules formed by combining genetic material from different sources."},
+      {q: "what is a plasmid?", a: "A small circular DNA molecule found in bacteria used as a vector in genetic engineering."},
+      {q: "what is a vector in genetic engineering?", a: "A vehicle, like a plasmid, used to transfer genetic material into a host cell."},
+      {q: "what is gene cloning?", a: "Making identical copies of a gene."},
+      {q: "what is a genetically modified organism (gmo)?", a: "An organism whose genome has been altered by genetic engineering."},
+      {q: "what is the role of restriction enzymes?", a: "They cut DNA at specific sequences to allow insertion of new genes."},
+      {q: "what is dna ligase?", a: "An enzyme that joins DNA fragments together."},
+      {q: "what is pcr (polymerase chain reaction)?", a: "A technique to amplify small segments of DNA."},
+      {q: "what is gel electrophoresis?", a: "A method to separate DNA fragments by size."},
+      {q: "what is gene therapy?", a: "Treatment of genetic disorders by inserting correct genes into cells."},
+      {q: "what is the human genome project?", a: "An international effort to map all human genes."},
+      {q: "what are ethical concerns in genetic engineering?", a: "Issues include safety, consent, environmental impact, and genetic discrimination."},
+      {q: "what is a transgenic organism?", a: "An organism that contains genes from another species."},
+      {q: "what is crispr-cas9?", a: "A gene-editing tool that allows precise, targeted changes to DNA."},
+      {q: "what is a genome?", a: "The complete set of DNA in an organism."},
+      {q: "what is a promoter region?", a: "DNA sequence that controls the transcription of a gene."},
+      {q: "what is gene expression?", a: "The process by which information from a gene is used to make a protein."},
+      {q: "what is horizontal gene transfer?", a: "Transfer of genes between organisms other than by inheritance."},
+      {q: "what is selective breeding?", a: "Choosing organisms with desirable traits to reproduce."}
+    ],
+    evolution: [
+      {q: "what is evolution?", a: "Evolution is the change in species over time through natural selection."},
+      {q: "who proposed the theory of evolution?", a: "Charles Darwin."},
+      {q: "what is natural selection?", a: "The process where organisms better adapted to their environment survive and reproduce."},
+      {q: "what is survival of the fittest?", a: "The idea that the strongest or most adapted organisms survive."},
+      {q: "what is a fossil?", a: "Preserved remains or impressions of ancient organisms."},
+      {q: "what is speciation?", a: "The formation of new and distinct species."},
+      {q: "what is genetic drift?", a: "Random changes in gene frequencies in a population."},
+      {q: "what is gene flow?", a: "The transfer of genes between populations."},
+      {q: "what is adaptation?", a: "A trait that increases an organism’s chance of survival."},
+      {q: "what is artificial selection?", a: "Selective breeding by humans."},
+      {q: "what is homologous structure?", a: "Structures that share a common ancestor but may have different functions."},
+      {q: "what is analogous structure?", a: "Structures with similar function but different evolutionary origins."},
+      {q: "what is vestigial structure?", a: "Reduced or nonfunctional structures inherited from ancestors."},
+      {q: "what is the role of mutations in evolution?", a: "Mutations introduce genetic variation."},
+      {q: "what is punctuated equilibrium?", a: "Evolution happens in rapid bursts separated by long periods of stability."},
+      {q: "what is co-evolution?", a: "Two species evolving in response to each other."},
+      {q: "what is the fossil record?", a: "The history of life documented by fossils."},
+      {q: "what is microevolution?", a: "Small evolutionary changes within a species."},
+      {q: "what is macroevolution?", a: "Large-scale evolution resulting in new species."},
+      {q: "what is the theory of inheritance of acquired traits?", a: "Lamarck’s idea that traits acquired during life can be passed on."}
+    ],
+    human_impact: [
+      {q: "what is human impact on the environment?", a: "Effects caused by humans on natural ecosystems."},
+      {q: "what causes deforestation?", a: "Clearing forests for agriculture, logging, and urban development."},
+      {q: "what is pollution?", a: "Contamination of air, water, or soil by harmful substances."},
+      {q: "what is global warming?", a: "Increase in Earth’s average temperature due to greenhouse gases."},
+      {q: "what are greenhouse gases?", a: "Gases like CO2 and methane that trap heat in the atmosphere."},
+      {q: "what is biodiversity?", a: "The variety of living organisms in an ecosystem."},
+      {q: "how does pollution affect biodiversity?", a: "It can kill species and disrupt ecosystems."},
+      {q: "what is sustainable development?", a: "Meeting present needs without compromising future generations."},
+      {q: "what is conservation?", a: "Protecting natural resources and habitats."},
+      {q: "what is acid rain?", a: "Rainfall made acidic by air pollution."},
+      {q: "what causes ozone depletion?", a: "Chemicals like CFCs damaging the ozone layer."},
+      {q: "what are renewable energy sources?", a: "Energy from sources that can be replenished like solar and wind."},
+      {q: "what is recycling?", a: "Processing materials to make them reusable."},
+      {q: "what is desertification?", a: "Land degradation turning fertile land into desert."},
+      {q: "what are invasive species?", a: "Non-native species that harm ecosystems."},
+      {q: "what is overfishing?", a: "Harvesting fish faster than they can reproduce."},
+      {q: "what is climate change?", a: "Long-term changes in temperature and weather patterns."},
+      {q: "how can humans reduce impact?", a: "Using less energy, recycling, protecting habitats, and using clean energy."},
+      {q: "what is habitat destruction?", a: "Loss of natural habitat due to human activities."},
+      {q: "what is the role of NGOs in environment?", a: "They work to protect the environment and raise awareness."}
+    ]
+    };
+
+    let currentTopic = "";
+    let currentIndex = 0;
+    let currentQuestions = [];
+    let known = [];
+    let unsure = [];
+
+    function startQuiz() {
+      currentTopic = document.getElementById("topic").value;
+      currentQuestions = quizData[currentTopic];
+      currentIndex = 0;
+      known = [];
+      unsure = [];
+      showQuestion();
+      updateProgress();
+    }
+
+    function showQuestion() {
+      const q = currentQuestions[currentIndex];
+      document.getElementById("question").textContent = q.q;
+      document.getElementById("answer").style.display = "none";
+      document.getElementById("answer").textContent = q.a;
+    }
+
+    function showAnswer() {
+      document.getElementById("answer").style.display = "block";
+    }
+
+    function nextQuestion() {
+      currentIndex = (currentIndex + 1) % currentQuestions.length;
+      showQuestion();
+      updateProgress();
+    }
+
+    function markAsKnown() {
+      known.push(currentQuestions[currentIndex].q);
+      nextQuestion();
+    }
+
+    function markAsNotSure() {
+      unsure.push(currentQuestions[currentIndex].q);
+      nextQuestion();
+    }
+
+    function updateProgress() {
+      document.getElementById("progress").innerHTML = `Known: ${known.length} | Not Sure: ${unsure.length}`;
+    }
+  </script>
+</body>
+</html>
