@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Past Papers – Grade 12 Life Sciences</title>
   <style>
     body {
@@ -69,18 +69,26 @@
     flex-direction: column;
     margin-bottom: 10px;
   }
+.download-btn {
+  padding: 12px 20px;
+  font-size: 16px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 8px;
+  background-color: #58d68d;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  max-width: 300px;
+}
+
+@media (max-width: 600px) {
   .download-btn {
-    background-color: #f9e79f;
-    color: #2d3436;
-    text-decoration: none;
-    padding: 6px 12px;
-    margin-top: 5px;
-    border-radius: 8px;
-    font-weight: 600;
-    display: inline-block;
-    width: fit-content;
-    transition: background-color 0.3s ease;
+    font-size: 18px;
+    padding: 14px 24px;
+    width: 90%;
   }
+}
 
   .download-btn:hover {
     background-color: #82e0aa;
