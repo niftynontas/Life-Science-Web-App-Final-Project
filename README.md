@@ -80,9 +80,6 @@ A relaxing interface for late-night sessions.
 
 📅 Calendar & Planner Integration
 
-📸 Screenshots (Optional)
-Insert screenshots of each page if you'd like to include them later.
-
 This project is part of a mission to make studying beautiful, motivating, and impactful. Created to inspire learners to reach their full potential in Grade 12 and beyond.
 
 
